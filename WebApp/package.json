@@ -2,6 +2,7 @@
   "name": "webserver",
   "version": "3.0.0",
   "private": true,
+  "main": "./src/index.ts",
   "scripts": {
     "prestart": "npm install",
     "build": "tsc -p tsconfig.json",
@@ -45,5 +46,8 @@
     "targets": [
       "node10"
     ]
+  },
+  "engines": {
+    "node": "16.5.0"
   }
 }
