@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var https = require("https");
 var fs = require("fs");
+var https = require("https");
 var os = require("os");
 var server_1 = require("./server");
 var websocket_1 = require("./websocket");
@@ -11,10 +11,12 @@ var RenderStreaming = /** @class */ (function () {
         this.options = options;
         this.app = server_1.createServer(this.options);
         if (this.options.secure) {
-            this.server = https.createServer({
+            this.server = https
+                .createServer({
                 key: fs.readFileSync(options.keyfile),
                 cert: fs.readFileSync(options.certfile),
-            }, this.app).listen(this.options.port, function () {
+            }, this.app)
+                .listen(this.options.port, function () {
                 var port = _this.server.address().port;
                 var addresses = _this.getIPAddress();
                 for (var _i = 0, addresses_1 = addresses; _i < addresses_1.length; _i++) {
@@ -41,18 +43,18 @@ var RenderStreaming = /** @class */ (function () {
         console.log("start as " + this.options.mode + " mode");
     }
     RenderStreaming.run = function (argv) {
-        var program = require('commander');
+        var program = require("commander");
         var readOptions = function () {
             if (Array.isArray(argv)) {
                 program
-                    .usage('[options] <apps...>')
-                    .option('-p, --port <n>', 'Port to start the server on', process.env.PORT || 80)
-                    .option('-s, --secure', 'Enable HTTPS (you need server.key and server.cert)', process.env.SECURE || false)
-                    .option('-k, --keyfile <path>', 'https key file (default server.key)', process.env.KEYFILE || 'server.key')
-                    .option('-c, --certfile <path>', 'https cert file (default server.cert)', process.env.CERTFILE || 'server.cert')
-                    .option('-w, --websocket', 'Enable Websocket Signaling', process.env.WEBSOCKET || false)
-                    .option('-m, --mode <type>', 'Choose Communication mode public or private (default public)', process.env.MODE || 'public')
-                    .option('-l, --logging <type>', 'Choose http logging type combined, dev, short, tiny or none.(default dev)', process.env.LOGGING || 'dev')
+                    .usage("[options] <apps...>")
+                    .option("-p, --port <n>", "Port to start the server on", process.env.PORT || 80)
+                    .option("-s, --secure", "Enable HTTPS (you need server.key and server.cert)", process.env.SECURE || false)
+                    .option("-k, --keyfile <path>", "https key file (default server.key)", process.env.KEYFILE || "server.key")
+                    .option("-c, --certfile <path>", "https cert file (default server.cert)", process.env.CERTFILE || "server.cert")
+                    .option("-o, --websocket", "Enable Websocket Signaling", process.env.WEBSOCKET || false)
+                    .option("-m, --mode <type>", "Choose Communication mode public or private (default public)", process.env.MODE || "public")
+                    .option("-l, --logging <type>", "Choose http logging type combined, dev, short, tiny or none.(default dev)", process.env.LOGGING || "dev")
                     .parse(argv);
                 return {
                     port: program.port,
@@ -74,7 +76,7 @@ var RenderStreaming = /** @class */ (function () {
         for (var k in interfaces) {
             for (var k2 in interfaces[k]) {
                 var address = interfaces[k][k2];
-                if (address.family === 'IPv4') {
+                if (address.family === "IPv4") {
                     addresses.push(address.address);
                 }
             }
